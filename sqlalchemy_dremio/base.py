@@ -209,6 +209,7 @@ class DremioDialect(default.DefaultDialect):
                             "select * from INFORMATION_SCHEMA.\"TABLES\" where "
                             "TABLE_NAME=:name"), name=tablename
                         )
+        print(result)
         return bool(result)
 
     def get_columns(self, connection, table_name, schema=None, **kw):
