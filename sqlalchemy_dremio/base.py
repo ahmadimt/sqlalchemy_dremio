@@ -206,8 +206,8 @@ class DremioDialect(default.DefaultDialect):
     def has_table(self, connection, tablename, schema=None):
         result = connection.scalar(
                         sql.text(
-                            "select * from INFORMATION_SCHEMA.`TABLES` where "
-                            "name=:name"), name=tablename
+                            "select * from INFORMATION_SCHEMA.\"TABLES\" where "
+                            "TABLE_NAME=:name"), name=tablename
                         )
         return bool(result)
 
