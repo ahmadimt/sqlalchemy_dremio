@@ -232,6 +232,6 @@ class DremioDialect(default.DefaultDialect):
 
     @reflection.cache
     def get_table_names(self, connection, schema=None, **kw):
-        result = connection.execute("SHOW TABLES FROM INFORMATION_SCHEMA")
-        table_names = [r[0] for r in result]
+        result = connection.execute("select * FROM INFORMATION_SCHEMA.\"tables\" where TABLE_TYPE='VIEW'")
+        table_names = [r[2] for r in result]
         return table_names
