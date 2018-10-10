@@ -237,4 +237,4 @@ class DremioDialect(default.DefaultDialect):
         return table_names
 
     def get_schema_names(self, connection, **kw):
-        return [row.Schema for row in connection.execute('SHOW SCHEMAS')]
+        return [row.SCHEMA_NAME for row in connection.execute('select * from INFORMATION_SCHEMA.SCHEMATA')]
