@@ -64,11 +64,11 @@ class DremioCompiler(compiler.SQLCompiler):
     def visit_table(self, table, asfrom=False, **kwargs):
 
         if asfrom:
-            if table.schema != "":
-                fixed_schema = ".".join(["`" + i.replace('`', '') + "`" for i in table.schema.split(".")])
-                fixed_table = fixed_schema + ".`" + table.name.replace("`", "") + "`"
+            if table.schema != "" and table.schema is not None:
+                # fixed_schema = ".".join(["`" + i.replace('`', '') + "`" for i in table.schema.split(".")])
+                fixed_table = table.schema.replace("`", "") + "." + table.name.replace("`", "")
             else:
-                fixed_table = "`" + table.name.replace("`", "") + "`"
+                fixed_table = table.name.replace("`", "")
             return fixed_table
         else:
             return ""
@@ -209,7 +209,6 @@ class DremioDialect(default.DefaultDialect):
                             "select * from INFORMATION_SCHEMA.\"TABLES\" where "
                             "TABLE_NAME=:name"), name=tablename
                         )
-        print(result)
         return bool(result)
 
     def get_columns(self, connection, table_name, schema=None, **kw):
@@ -238,3 +237,15 @@ class DremioDialect(default.DefaultDialect):
 
     def get_schema_names(self, connection, **kw):
         return [row.SCHEMA_NAME for row in connection.execute('select * from INFORMATION_SCHEMA.SCHEMATA')]
+
+    @reflection.cache
+    def get_indexes(self, connection, table_name, schema, **kw):
+        return []
+
+    @reflection.cache
+    def get_pk_constraint(self, connection, table_name, schema=None, **kw):
+        return []
+
+    @reflection.cache
+    def get_foreign_keys(self, connection, table_name, schema=None, **kw):
+        return []
