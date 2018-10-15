@@ -137,7 +137,7 @@ class DremioIdentifierPreparer(compiler.IdentifierPreparer):
     'return', 'returns', 'revoke', 'right', 'rollback', 'rollup', 'row', 'row_number', 'rows', 
     'running', 'savepoint', 'scope', 'scroll', 'search', 'second', 'seek', 'select', 'sensitive', 
     'session_user', 'set', 'minus', 'show', 'similar', 'skip', 'smallint', 'some', 'specific', 
-    'specifictype', 'sql', 'sqlexception', 'sqlstate', 'sqlwarning', 'sqrt', 'start', 'static', 
+    'specifictype', 'sql', 'sqlexception', 'sqlstate', 'sqlwarning', 'sqrt', 'start', 'static',
     'stddev_pop', 'stddev_samp', 'stream', 'submultiset', 'subset', 'substring', 'substring_regex',
     'succeeds', 'sum', 'symmetric', 'system', 'system_time', 'system_user', 'table', 'tablesample',
     'then', 'time', 'timestamp', 'timezone_hour', 'timezone_minute', 'tinyint', 'to', 'trailing', 
@@ -152,7 +152,7 @@ class DremioIdentifierPreparer(compiler.IdentifierPreparer):
     
     def __init__(self, dialect):
         super(DremioIdentifierPreparer, self).\
-                __init__(dialect, initial_quote='[', final_quote=']')
+                __init__(dialect, initial_quote='"', final_quote='"')
 
 class DremioDialect(default.DefaultDialect):
     name = 'dremio'
