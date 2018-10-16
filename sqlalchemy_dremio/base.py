@@ -236,7 +236,7 @@ class DremioDialect(default.DefaultDialect):
         return table_names
 
     def get_schema_names(self, connection, **kw):
-        return [row.SCHEMA_NAME for row in connection.execute('select * from INFORMATION_SCHEMA.SCHEMATA')]
+        return [row.SCHEMA_NAME for row in connection.execute("select * from INFORMATION_SCHEMA.SCHEMATA where SCHEMA_NAME='%s'"%(connection.url.database))]
 
     @reflection.cache
     def get_indexes(self, connection, table_name, schema, **kw):
